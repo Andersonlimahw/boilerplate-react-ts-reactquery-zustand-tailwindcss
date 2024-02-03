@@ -59,7 +59,8 @@ Customize pages how you need!
 
 * Toasts with  react-tostify
 
-* zustand for state management
+* zustand for global state management
+* React query fo request state management: 
 
 * Base service to manage your requests
 * Mocks with miragejs
@@ -102,6 +103,7 @@ npm run test
 [pwa](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) <br />
 [react](https://react.dev/learn) <br />
 [zustand](https://github.com/pmndrs/zustand) <br />
+[react-query](https://tanstack.com/query/latest/docs/framework/react/overview) <br />
 [typescript](https://www.typescriptlang.org/docs/) <br />
 [firebase](https://firebase.google.com/docs) <br />
 [vitest](https://vitest.dev/) <br />

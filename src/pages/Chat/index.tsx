@@ -2,13 +2,19 @@ import { ArrowLineLeft } from '@phosphor-icons/react';
 
 import { Footer } from '../../commons/components/Footer';
 import { useHookSample } from './hooks';
-import { PeopleModel } from '../../models';
+import { EScreenState } from '../../enums';
+import { ErrorApiComponent, LoadingComponent, NoContentComponent } from '../../commons/components/ApiFeedbacks';
+import { stateKey } from '../../commons/utils/renders/screent-type';
 
 export const Chat = () => {
 
 
   const useHook = useHookSample();
-  const { loading, people, theme } = useHook;
+  const { peopleQuery, theme } = useHook;
+  const {    
+    data: people,    
+    refetch,    
+   } = peopleQuery;
 
   const hasSelectedContact = false;
   const containerClasses = {
@@ -27,9 +33,29 @@ export const Chat = () => {
 
   const screnType = isMobile() ? 'mobile' : 'default';
 
+  const SuccesComponent = () => (
+    <>
+      <h1>
+        Lets code!
+      </h1>
+      <h1>
+        Api : Response
+        <br />
+        count: {people?.length}
+        <br />
+        Name: {people != null ? people[0].name : ''}
+      </h1>
+    </>);
+
+ 
+  const screenState : any = { 
+    [EScreenState.loading]: { render: () => <LoadingComponent /> },
+    [EScreenState.error]: { render: () => <ErrorApiComponent onRetry={refetch} /> },
+    [EScreenState.noCotent]: { render: () => <NoContentComponent /> },
+    [EScreenState.success]: { render: () => <SuccesComponent /> },
+  }; 
   return (
     <>
-     
       <div className={`w-full h-40 bg-gradient-to-r ${theme.styles.gradient}`} >
         <ArrowLineLeft size={48} className={`mx-2 py-2 cursor-pointer ${hasSelectedContact ? 'block' : 'hidden'}`} />
       </div>
@@ -43,6 +69,7 @@ export const Chat = () => {
                 <>
                   <h1>
                     Happy customs!
+                    Request sample result on right!
                   </h1>
                   <Footer />
                 </>
@@ -51,18 +78,7 @@ export const Chat = () => {
 
             {/* Right */}
             <div className={`animate-[wiggle_1s_ease-in-out_infinite] shadow-sm flex flex-col ${messagesContainerClasses[screnType]}`}>
-              <h1>
-                Lets code!
-
-              
-              </h1>
-              <h1>
-                Api : Response 
-                <br />
-                count: {people?.length}
-                <br />
-                Name: {people && people[0]?.name}
-              </h1>
+              {screenState[`${stateKey(peopleQuery)}`]?.render() ?? LoadingComponent() }
             </div>
           </div>
         </div>
@@ -72,3 +88,4 @@ export const Chat = () => {
 };
 
 export default Chat;
+

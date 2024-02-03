@@ -13,8 +13,10 @@ import { Chat } from './pages/Chat';
 import { startMirage } from './mocks/miragejs/index.js';
 
 import './index.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-if(import.meta.env.DEV) {
+if (import.meta.env.DEV) {
   startMirage();
 } else {
   console.log('Enviroment: ', import.meta.env);
@@ -31,11 +33,25 @@ const router = createBrowserRouter([
   }
 ]);
 
-
+const staleTimeMinutes = 10;
+const slateTimeInMiliseconds = (1000 * 60) * staleTimeMinutes;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: slateTimeInMiliseconds,
+      retry: 2, 
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  }
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ToastContainer />
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <ToastContainer />
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )
