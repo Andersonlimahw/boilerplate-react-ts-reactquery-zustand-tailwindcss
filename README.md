@@ -32,6 +32,11 @@
    src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tailwindcss.svg"
  />
 
+ <img
+   height="32"
+   width="32"
+   src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/reactquery.svg"
+ />
 
 > Boilerplate : PWA project using vite, react, zustand, tailwindcss vitest and more!
 
@@ -114,7 +119,7 @@ npm run test
 
 👤 **Anderson Lima (Lemon 🍋)**
 
-- Website: https://lemondev.framer.ai
+- Website: https://lemon.dev.br
 - Twitter: [@andersonlimahw](https://twitter.com/andersonlimahw)
 - Github: [@andersonlimahw](https://github.com/andersonlimahw)
 - LinkedIn: [@andersonlimahw](https://linkedin.com/in/andersonlimahw)
